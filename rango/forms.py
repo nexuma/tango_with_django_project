@@ -23,9 +23,11 @@ class PageForm(forms.ModelForm):
     def clean(self):
         cleaned_data = self.cleaned_data
         url = cleaned_data.get('url')
+        print(f"Original URL: {url}")  # Debug statement
 
-        if url and not url.startswith('http://'):
+        if url and not (url.startswith('http://') or url.startswith('https://')):
             url = f'http://{url}'
             cleaned_data['url'] = url
+            print(f"Modified URL: {url}")  # Debug statement
 
         return cleaned_data
